@@ -347,10 +347,11 @@ select {
   border: 1px solid transparent;
   background: var(--seat-available);
   cursor: pointer;
-}
-
-.seat:nth-child(4n + 4) {
-  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10243b;
+  font-weight: 700;
 }
 
 .seat.preferential {
@@ -363,6 +364,7 @@ select {
 
 .seat.selected {
   background: var(--seat-selected);
+  color: #ffffff;
 }
 
 .seat.occupied {
