@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Reserva de Cine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Encabezado principal con identidad visual y cambio de tema -->
+  <header class="topbar">
+    <div>
+      <h1>Cinema Reserva Pro</h1>
+      <p>Reserva profesional de películas, asientos y boletos digitales</p>
+    </div>
+    <button id="themeToggle" class="btn btn-secondary" aria-label="Cambiar tema">Modo Oscuro</button>
+  </header>
+
+  <!-- Barra semanal inspirada en interfaces reales: cada día filtra cartelera -->
+  <section class="week-panel">
+    <div id="weekSchedule" class="week-schedule" aria-label="Clasificación semanal de películas"></div>
+  </section>
+
+  <main class="layout">
+    <!-- Panel izquierdo: catálogo ampliado + compra -->
+    <section class="panel movies-panel">
+      <h2>Cartelera por Día</h2>
+      <p id="selectedDayLabel" class="muted">Selecciona el día para ver películas disponibles.</p>
+
+      <div id="movieList" class="movie-list"></div>
+
+      <div class="field-group">
+        <label for="ticketQty">Cantidad de boletos</label>
+        <input type="number" id="ticketQty" min="1" value="1" />
+      </div>
+
+      <div class="totals-box">
+        <h3>Resumen de pago</h3>
+        <p>Precio por boleto: <strong id="pricePerTicket">Q 0.00 / $ 0.00</strong></p>
+        <p>Total asientos seleccionados: <strong id="seatCount">0</strong></p>
+        <p>Total a pagar: <strong id="totalAmount">Q 0.00 / $ 0.00</strong></p>
+      </div>
+
+      <!-- Mini pasarela de pago visual y simple para simulación del flujo -->
+      <div class="payment-box">
+        <h3>Mini Pasarela de Pago</h3>
+        <div class="field-group">
+          <label for="cardName">Nombre en tarjeta</label>
+          <input type="text" id="cardName" placeholder="Ej: Juan Pérez" />
+        </div>
+        <div class="field-group">
+          <label for="cardNumber">Número de tarjeta</label>
+          <input type="text" id="cardNumber" maxlength="19" placeholder="0000 0000 0000 0000" />
+        </div>
+        <div class="payment-row">
+          <div class="field-group">
+            <label for="cardExpiry">Expiración</label>
+            <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" />
+          </div>
+          <div class="field-group">
+            <label for="cardCvv">CVV</label>
+            <input type="password" id="cardCvv" placeholder="123" maxlength="4" />
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="confirmBtn" class="btn btn-primary">Confirmar Reserva</button>
+        <button id="cancelBtn" class="btn btn-danger">Cancelar Reserva</button>
+        <button id="pdfBtn" class="btn btn-secondary">Generar Boleto PDF</button>
+      </div>
+
+      <div id="message" class="message" aria-live="polite"></div>
+    </section>
+
+    <!-- Panel derecho: detalle de película elegida + asientos -->
+    <section class="panel seats-panel">
+      <h2>Selección de Asientos</h2>
+      <p class="muted">La selección se limita automáticamente a la cantidad de boletos.</p>
+
+      <div class="field-group">
+        <label for="roomSelect">Sala disponible para esta película</label>
+        <select id="roomSelect"></select>
+      </div>
+
+      <div class="poster-card">
+        <img id="moviePoster" src="" alt="Poster de la película" />
+        <div>
+          <h3 id="movieTitle">Selecciona una película</h3>
+          <p id="movieSchedule">Horario: --:--</p>
+          <p id="moviePrice">Precio: Q 0.00 / $ 0.00</p>
+          <p><strong>Sala:</strong> <span id="movieRoomName">--</span></p>
+          <p><strong>Tipo de sala:</strong> <span id="movieRoomType">--</span></p>
+          <p><strong>Clasificación:</strong> <span id="movieRating">--</span></p>
+          <p><strong>Duración:</strong> <span id="movieDuration">-- min</span></p>
+          <p><strong>Sinopsis:</strong> <span id="movieSynopsis">Selecciona una película para ver información.</span></p>
+        </div>
+      </div>
+
+      <div class="screen">PANTALLA</div>
+      <div id="seatGrid" class="seat-grid"></div>
+
+      <div class="legend">
+        <span><i class="seat-demo available"></i> Disponible</span>
+        <span><i class="seat-demo preferential"></i> Preferencial</span>
+        <span><i class="seat-demo vip"></i> VIP</span>
+        <span><i class="seat-demo selected"></i> Seleccionado</span>
+        <span><i class="seat-demo occupied"></i> Ocupado</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
